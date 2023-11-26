@@ -1,0 +1,81 @@
+@startuml clases
+
+class Object {
+  + init(x: int, y: int, width: int, height: int)
+  + x: int
+  + y: int
+  + width: int
+  + height: int
+  + right(): int
+  + bottom(): int
+  + center(): Tuple[int, int]
+  + colliderect(other: Object): bool
+  + contains(point: Tuple[int, int]): bool
+}
+
+class Manzana {
+  - obj: Object
+  + init(ancho: int, alto: int)
+  + generar(): void
+  + mover(): void
+  + aumentar_velocidad(): void
+  + verificar_colision(serpiente: Serpiente): bool
+}
+
+class PosionTamano {
+  - obj: Object
+  - aparecida: bool
+  + init(ancho: int, alto: int)
+  + generar(): void
+  + aparecer(manzanas_comidas: int): bool
+  + desaparecer(): void
+  + verificar_colision(cabeza_serpiente: Object, manzanas_comidas: int): bool
+}
+
+class PosionVelocidad {
+  - obj: Object
+  - velocidad_serpiente: float
+  + init(ancho: int, alto: int, velocidad_serpiente: float)
+  + generar(): void
+  + verificar_colision(serpiente: Serpiente): bool
+  + aparecer(velocidad_serpiente: float): void
+}
+
+class Serpiente {
+  - cuerpo: List<Object>
+  - direccion: Tuple[int, int]
+  - agregar: bool
+  - velocidad: float
+  + init()
+  + dibujar(superficie: Surface, color: Tuple[int, int, int]): void
+  + mover(): void
+  + mover_arriba(): void
+  + mover_abajo(): void
+  + mover_derecha(): void
+  + mover_izquierda(): void
+  + morir(ancho: int, alto: int): bool
+  + disminuir_tamano(): void
+}
+
+class Juego {
+  - ANCHO: int
+  - ALTO: int
+  - FONDO: Image
+  - WIN: Surface
+  - SCORE_FONT: Font
+  - sonido_coin1: Sound
+  - sonido_coin2: Sound
+  + main(): void
+  + mostrar_mensaje(mensaje: str): void
+}
+
+Manzana --|> Object
+PosionTamano --|> Object
+PosionVelocidad --|> Object
+Serpiente --|> Object
+Juego --|> Manzana
+Juego --|> PosionTamano
+Juego --|> PosionVelocidad
+Juego --|> Serpiente
+
+@enduml
